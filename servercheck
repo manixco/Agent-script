@@ -1,0 +1,67 @@
+#!/bin/bash
+
+#This script will check the new installed server
+#January #By ibrahimyahaya08@gmail.com
+
+##CPU check
+CPU_N='NPROC'
+if [ ${CPU_N} -lt 2 ]
+then
+echo "cpu check FAILED"
+else
+echo "cpu ckeck PASSED"
+fi
+
+##Memory check
+MEM='free -m | grep Mem | awk '{print $2}''
+if [ ${MEM} -lt 2000 ]
+then 
+echo "Memory check FAILED"
+else 
+echo "Memory check PASSED"
+fi
+
+##Check if files exist
+if [ -f /etc/group ]
+then 
+echo "file /etc/group exist"
+else 
+echo "file /etc/group missing"
+fi
+if [ -f /etc/passwd ]
+then
+echo "file /etc/passwd exist"
+else
+echo "file /etc/passwd missing"
+fi
+if [ -f /etc/httpd ]
+then
+echo "file /etc/httpd exist"
+else
+echo "file /etc/httpd missing"
+fi
+if [ -f /etc/kubernetes ]
+then
+echo "file /etc/kubernetes exist"
+else
+echo "file /etc/kubernetes missing"
+fi
+
+##Check if user puppet exist
+id puppet
+RC='$?'
+if [ ${RC} -eq 0 ]
+then 
+echo "user puppet exist"
+else
+echo "user puppet does not exist"
+fi
+
+##Checking the kernel version
+KERNELVER='uname -r | awk -F. '{print $1}''
+if [ ${KERNELVER} -ge 3 ]
+then 
+echo "kernel version check PASSED"
+else
+echo "kernel version check FAILED"
+fi
